@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import 'bootstrap';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -9,33 +10,30 @@ function Navbar() {
     };
 
     return (
-        <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div className="container">
-                <Link className="navbar-brand" to="/tasks">Task Tracker</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav className="navbar navbar-expand-lg navbar-primary bg-primary fixed-top px-3">
+            <div className="container-fluid">
+                {/* Left-aligned Brand */}
+                <Link className="navbar-brand text-light ms-3" to="/tasks">
+                    Task Tracker
+                </Link>
+
+                {/* Navbar Toggle Button (for mobile view) */}
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul className="navbar-nav flex-grow-1">
-                        <li className="nav-item">
-                            <a href="/" className="nav-link text-dark">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="/Login" className="nav-link text-dark">Login</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="/Register" className="nav-link text-dark" >Register</a>
-                        </li>
-                        <li className="nav-item">
-                            <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
-                        </li>
-                    </ul>
+
+                {/* Navbar Items (Right-Aligned) */}
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <div className="navbar-nav ms-auto">
+                        <Link className="nav-link text-light" to="/">Home</Link>
+                        <Link className="nav-link text-light" to="/login">Login</Link>
+                        <Link className="nav-link text-light" to="/register">Register</Link>
+                        <button className="btn btn-danger ms-3" onClick={handleLogout}>Logout</button>
+                    </div>
                 </div>
             </div>
         </nav>
-        );
+    );
 }
 
 export default Navbar;
