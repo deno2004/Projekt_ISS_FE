@@ -9,9 +9,9 @@ function Navbar() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-primary bg-primary fixed-top px-3">
+        <nav className="navbar navbar-expand-lg navbar-primary bg-primary px-3">
             <div className="container-fluid">
-                <Link className="navbar-brand text-light ms-3" to="/tasks">
+                <Link className="navbar-brand text-light ms-3" to="/">
                     Task Tracker
                 </Link>
 
@@ -21,7 +21,6 @@ function Navbar() {
 
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="navbar-nav ms-auto">
-                        <Link className="nav-link text-light" to="/">Home</Link>
                         <Link className="nav-link text-light" to="/login">Login</Link>
                         <Link className="nav-link text-light" to="/register">Register</Link>
                         <button className="btn btn-danger ms-3" onClick={handleLogout}>Logout</button>

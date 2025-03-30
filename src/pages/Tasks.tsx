@@ -11,38 +11,119 @@ interface Task {
 
 function Tasks() {
     const [tasks, setTasks] = useState<Task[]>([]);
+    const [newTask, setNewTask] = useState<string>("");
 
     useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const response = await axios.get("http://localhost:5000/api/tasks", {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                setTasks(response.data);
-            } catch (error) {
-                console.error("Napaka pri nalaganju nalog");
-            }
-        };
         fetchTasks();
     }, []);
 
+    const fetchTasks = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.get("http://localhost:5000/api/tasks", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setTasks(response.data);
+        } catch (error) {
+            console.error("Error loading tasks");
+        }
+    };
+
+    const addTask = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newTask.trim()) return;
+
+        try {
+            const token = localStorage.getItem("token");
+            await axios.post("http://localhost:5000/api/tasks", { title: newTask }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setNewTask("");
+            fetchTasks();
+        } catch (error) {
+            console.error("Error adding task");
+        }
+    };
+
+    const deleteTask = async (id: number) => {
+        try {
+            const token = localStorage.getItem("token");
+            await axios.delete(`http://localhost:5000/api/tasks/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            fetchTasks();
+        } catch (error) {
+            console.error("Error deleting task");
+        }
+    };
+
+    const markAsFinished = async (id: number) => {
+        try {
+            const token = localStorage.getItem("token");
+            await axios.put(`http://localhost:5000/api/tasks/${id}`, { status: "Completed" }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            fetchTasks();
+        } catch (error) {
+            console.error("Error updating task");
+        }
+    };
+
     return (
-        <div className="container mt-5">
-            <h2>Naloge</h2>
-            <ul className="list-group">
-                {tasks.map(task => (
-                    <li key={task.id} className="list-group-item">
-                        <h5>{task.title}</h5>
-                        <p>{task.description}</p>
-                        <span className={`badge ${task.status.name === "Completed" ? "bg-success" : "bg-warning"}`}>
-                            {task.status.name}
-                        </span>
-                        <span className="text-muted"> Rok: {task.deadline?.due_date}</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <section className="d-flex justify-content-center align-items-center vh-100">
+            <div className="containe">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col col-lg-9 col-xl-7">
+                        <div className="card rounded-3">
+                            <div className="card-body p-4">
+                                <div className="text-center mb-3">
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                                         className="img-fluid" alt="Login illustration" style={{ maxWidth: "80%" }} />
+                                </div>
+                                <h4 className="text-center my-3 pb-3">To Do App</h4>
+                                <form onSubmit={addTask} className="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                                    <div className="col-12">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={newTask}
+                                            onChange={(e) => setNewTask(e.target.value)}
+                                            placeholder="Enter a task here"
+                                        />
+                                    </div>
+                                    <div className="col-12">
+                                        <button type="submit" className="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                                <table className="table mb-4">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Todo item</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {tasks.map((task, index) => (
+                                        <tr key={task.id}>
+                                            <th scope="row">{index + 1}</th>
+                                            <td>{task.title}</td>
+                                            <td>{task.status.name}</td>
+                                            <td>
+                                                <button onClick={() => deleteTask(task.id)} className="btn btn-danger">Delete</button>
+                                                <button onClick={() => markAsFinished(task.id)} className="btn btn-success ms-1">Finished</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 

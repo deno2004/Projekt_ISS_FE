@@ -21,7 +21,7 @@ function Register() {
     };
 
     return (
-        <section className="d-flex justify-content-center align-items-center mt-5 mb-5">
+        <section className="d-flex justify-content-center align-items-center vh-100">
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-6 col-lg-5">

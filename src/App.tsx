@@ -4,12 +4,14 @@ import Register from "./pages/Register";
 import Tasks from "./pages/Tasks";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Index from "./pages/Index";
 
 function App() {
     return (
         <Router>
             <Navbar/>
                 <Routes>
+                    <Route path="/" element={<Index />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/tasks" element={<Tasks />} />

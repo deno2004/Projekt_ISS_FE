@@ -19,7 +19,7 @@ function Login() {
     };
 
     return (
-        <section className="d-flex justify-content-center align-items-center mt-5">
+        <section className="d-flex justify-content-center align-items-center vh-100">
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5 col-lg-5 mx-auto">
@@ -49,9 +49,6 @@ function Login() {
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
                                     />
-                                </div>
-                                <div className="d-flex justify-content-between">
-                                    <Link to="/forgot-password" className="text-body">Forgot password?</Link>
                                 </div>
                                 <div className="text-center mt-4">
                                     <button type="submit" className="btn btn-primary btn-lg w-100">Prijava</button>
