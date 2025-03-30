@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("Developer");
@@ -19,7 +21,7 @@ function Register() {
     };
 
     return (
-        <section className="d-flex justify-content-center align-items-center mt-5">
+        <section className="d-flex justify-content-center align-items-center mt-5 mb-5">
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-6 col-lg-5">
@@ -35,7 +37,26 @@ function Register() {
                             <h3 className="text-center mb-4">Registracija</h3>
                             <form onSubmit={handleRegister}>
                                 <div className="mb-3">
-                                    <label className="form-label">E-pošta</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Vnesite ime"
+                                        value={firstname}
+                                        onChange={(e) => setFirstname(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Vnesite priimek"
+                                        value={lastname}
+                                        onChange={(e) => setLastname(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
                                     <input
                                         type="email"
                                         className="form-control"
@@ -46,7 +67,6 @@ function Register() {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Geslo</label>
                                     <input
                                         type="password"
                                         className="form-control"
@@ -57,7 +77,6 @@ function Register() {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Vloga</label>
                                     <select
                                         className="form-control"
                                         value={role}
@@ -75,7 +94,7 @@ function Register() {
                                     </button>
                                 </div>
                                 <p className="text-center mt-3">
-                                    Already have an account? <Link to="/login" className="link-danger">Login</Link>
+                                    Already have an account? <Link to="/login" className="link-primary">Login</Link>
                                 </p>
                             </form>
                         </div>

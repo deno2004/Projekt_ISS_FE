@@ -31,7 +31,6 @@ function Login() {
                             <h3 className="text-center mb-4">Prijava</h3>
                             <form onSubmit={handleLogin}>
                                 <div className="mb-3">
-                                    <label className="form-label">E-pošta</label>
                                     <input
                                         type="email"
                                         className="form-control"
@@ -42,7 +41,6 @@ function Login() {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Geslo</label>
                                     <input
                                         type="password"
                                         className="form-control"
@@ -59,7 +57,7 @@ function Login() {
                                     <button type="submit" className="btn btn-primary btn-lg w-100">Prijava</button>
                                 </div>
                                 <p className="text-center mt-3">
-                                    Don't have an account? <Link to="/register" className="link-danger">Register</Link>
+                                    Don't have an account? <Link to="/register" className="link-primary">Register</Link>
                                 </p>
                             </form>
                         </div>
