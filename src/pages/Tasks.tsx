@@ -1,6 +1,7 @@
 import { useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import api from "../api";
 
 interface Task {
     id: number;
@@ -15,7 +16,9 @@ function Tasks() {
     const [newTask, setNewTask] = useState<string>("");
 
     useEffect(() => {
-        fetchTasks();
+        api.get("/tasks")
+            .then(response => setTasks(response.data))
+            .catch(error => console.error("Error fetching tasks", error));
     }, []);
 
     const fetchTasks = async () => {
@@ -81,7 +84,7 @@ function Tasks() {
                                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                                          className="img-fluid" alt="Login illustration" style={{ maxWidth: "80%" }} />
                                 </div>
-                                <h4 className="text-center my-3 pb-3">To Do App</h4>
+                                <h2 className="text-center my-3 pb-3">To Do App</h2>
                                 <form onSubmit={addTask} className="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                                     <div className="col-12">
                                         <Link to={`/create`} className="btn btn-primary ms-1">Add</Link>

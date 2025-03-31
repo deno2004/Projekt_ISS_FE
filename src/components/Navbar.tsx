@@ -1,10 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Navbar() {
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token); // Convert to boolean
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        setIsLoggedIn(false);
         navigate("/");
     };
 
@@ -21,9 +29,14 @@ function Navbar() {
 
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="navbar-nav ms-auto">
-                        <Link className="nav-link text-light" to="/login">Login</Link>
-                        <Link className="nav-link text-light" to="/register">Register</Link>
-                        <button className="btn btn-danger ms-3" onClick={handleLogout}>Logout</button>
+                        {!isLoggedIn ? (
+                            <>
+                                <Link className="nav-link text-light" to="/login">Login</Link>
+                                <Link className="nav-link text-light" to="/register">Register</Link>
+                            </>
+                        ) : (
+                            <button className="btn btn-danger ms-3" onClick={handleLogout}>Logout</button>
+                        )}
                     </div>
                 </div>
             </div>

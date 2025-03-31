@@ -7,13 +7,12 @@ function Register() {
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("Developer");
     const navigate = useNavigate();
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:5000/api/auth/register", { email, password, role });
+            await axios.post("http://localhost:5000/api/auth/register", { email, password});
             navigate("/login");
         } catch (error) {
             alert("Napaka pri registraciji!");
@@ -75,18 +74,6 @@ function Register() {
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
                                     />
-                                </div>
-                                <div className="mb-3">
-                                    <select
-                                        className="form-control"
-                                        value={role}
-                                        onChange={(e) => setRole(e.target.value)}
-                                        required
-                                    >
-                                        <option value="Developer">Developer</option>
-                                        <option value="Manager">Manager</option>
-                                        <option value="Admin">Admin</option>
-                                    </select>
                                 </div>
                                 <div className="text-center mt-4">
                                     <button type="submit" className="btn btn-primary btn-lg w-100">

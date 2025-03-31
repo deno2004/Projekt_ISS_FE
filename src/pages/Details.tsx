@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 interface Task {
     id: number;
@@ -15,9 +15,9 @@ export function Details() {
     const [task, setTask] = useState<Task | null>(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/tasks/${id}`)
+        api.get(`/tasks/${id}`)
             .then(response => setTask(response.data))
-            .catch(() => console.error("Error fetching task details"));
+            .catch(error => console.error("Error fetching task details", error));
     }, [id]);
 
     if (!task) return <p>Loading...</p>;
