@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 interface Task {
     id: number;
@@ -83,16 +84,7 @@ function Tasks() {
                                 <h4 className="text-center my-3 pb-3">To Do App</h4>
                                 <form onSubmit={addTask} className="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                                     <div className="col-12">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            value={newTask}
-                                            onChange={(e) => setNewTask(e.target.value)}
-                                            placeholder="Enter a task here"
-                                        />
-                                    </div>
-                                    <div className="col-12">
-                                        <button type="submit" className="btn btn-primary">Save</button>
+                                        <Link to={`/create`} className="btn btn-primary ms-1">Add</Link>
                                     </div>
                                 </form>
                                 <table className="table mb-4">
@@ -108,11 +100,16 @@ function Tasks() {
                                     {tasks.map((task, index) => (
                                         <tr key={task.id}>
                                             <th scope="row">{index + 1}</th>
-                                            <td>{task.title}</td>
+                                            <td>
+                                                <Link to={`/tasks/${task.id}/details`} className="text-decoration-none">
+                                                    {task.title}
+                                                </Link>
+                                            </td>
                                             <td>{task.status.name}</td>
                                             <td>
                                                 <button onClick={() => deleteTask(task.id)} className="btn btn-danger">Delete</button>
                                                 <button onClick={() => markAsFinished(task.id)} className="btn btn-success ms-1">Finished</button>
+                                                <Link to={`/tasks/${task.id}/update`} className="btn btn-warning ms-1">Edit</Link>
                                             </td>
                                         </tr>
                                     ))}
